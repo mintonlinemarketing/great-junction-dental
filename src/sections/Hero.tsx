@@ -18,8 +18,12 @@ export default function Hero() {
       <div className="relative">
         <div className="absolute inset-0">
           <img
-            src="/images/hero.png"
+            src="/images/hero.webp"
             alt="Great Junction Dental clinic"
+            width="1920"
+            height="1014"
+            fetchPriority="high"
+            decoding="async"
             className="h-full w-full object-cover"
           />
         </div>

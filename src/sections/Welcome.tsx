@@ -45,8 +45,12 @@ export default function Welcome() {
         </div>
         <div>
           <img
-            src="/images/building.jpg"
+            src="/images/building.webp"
             alt="Great Junction Dental practice"
+            width="1200"
+            height="722"
+            loading="lazy"
+            decoding="async"
             className="h-auto w-full rounded-xl shadow-xl sm:h-96 sm:object-cover"
           />
         </div>

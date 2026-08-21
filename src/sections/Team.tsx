@@ -2,17 +2,17 @@ const TEAM = [
   {
     name: 'Jisna Amina',
     role: 'Dental Hygienist',
-    img: '/images/jisna-amina.jpg',
+    img: '/images/jisna-amina.webp',
   },
   {
     name: 'Ajesh Joseph',
     role: 'Dental Hygienist',
-    img: '/images/ajesh-joseph.png',
+    img: '/images/ajesh-joseph.webp',
   },
   {
     name: 'Dr. Fary Johnson',
     role: 'BDS MSc Pg Dip Implantology — Principal Dentist',
-    img: '/images/fary-johnson.png',
+    img: '/images/fary-johnson.webp',
     noButton: true,
   },
 ]
@@ -38,6 +38,10 @@ export default function Team() {
                 <img
                   src={m.img}
                   alt={m.name}
+                  width="600"
+                  height="750"
+                  loading="lazy"
+                  decoding="async"
                   className="aspect-[4/5] w-full object-cover"
                 />
               </div>

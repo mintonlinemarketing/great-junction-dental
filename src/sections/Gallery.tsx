@@ -1,6 +1,6 @@
 const CASES = [
-  { img: '/images/gallery-1.png', alt: 'Full smile scale and polish result' },
-  { img: '/images/gallery-2.png', alt: 'Lower teeth deep clean result' },
+  { img: '/images/gallery-1.webp', alt: 'Full smile scale and polish result' },
+  { img: '/images/gallery-2.webp', alt: 'Lower teeth deep clean result' },
 ]
 
 export default function Gallery() {
@@ -21,6 +21,10 @@ export default function Gallery() {
               <img
                 src={c.img}
                 alt={c.alt}
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
                 className="w-full object-cover"
               />
               <span className="absolute left-3 top-3 rounded bg-white/90 px-2 py-0.5 text-[10px] font-semibold tracking-widest text-navy">
