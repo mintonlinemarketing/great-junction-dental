@@ -26,6 +26,49 @@ export default function BookingFlow({
 
   const popupOpen = detailsPopup && step > 1
 
+  // Persist gclid from the landing URL so it survives navigation
+  useEffect(() => {
+    const gclid = new URLSearchParams(window.location.search).get('gclid')
+    if (gclid) localStorage.setItem('gclid', gclid)
+  }, [])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const gclid =
+      new URLSearchParams(window.location.search).get('gclid') ||
+      localStorage.getItem('gclid') ||
+      ''
+    const payload = {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      phone: form.phone,
+      treatment: selected.name,
+      price: selected.price,
+      submittedAt: new Date().toISOString(),
+      gclid,
+      page: window.location.href,
+    }
+
+    // Google Tag Manager event
+    const w = window as unknown as { dataLayer?: Record<string, unknown>[] }
+    w.dataLayer = w.dataLayer || []
+    w.dataLayer.push({ event: 'booking_form_submission', ...payload })
+
+    // Pabbly webhook — sent as a simple request (no-cors) so CORS never blocks it
+    fetch(
+      'https://connect.pabbly.com/webhook-listener/webhook/IjU3NjUwNTZiMDYzMTA0MzQ1MjZiNTUzNyI_3D_pc/IjU3NjcwNTY4MDYzNzA0M2M1MjY4NTUzMjUxM2Ei_pc',
+      {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      }
+    ).catch(() => {})
+
+    setStep(3)
+  }
+
   useEffect(() => {
     if (popupOpen) {
       document.body.style.overflow = 'hidden'
@@ -57,10 +100,7 @@ export default function BookingFlow({
 
       <form
         className="mx-auto mt-8 max-w-md space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault()
-          setStep(3)
-        }}
+        onSubmit={handleSubmit}
       >
         <div>
           <label className="mb-1.5 block text-sm font-medium text-navy">
