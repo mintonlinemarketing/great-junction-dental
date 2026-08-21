@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Check, CheckCircle2, Sparkles, Wind } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Check, CheckCircle2, Sparkles, Wind, X } from 'lucide-react'
 
 type Treatment = 'standard' | 'airflow'
 
@@ -10,8 +10,10 @@ const TREATMENTS: Record<Treatment, { name: string; price: string }> = {
 
 export default function BookingFlow({
   notePosition = 'bottom',
+  detailsPopup = false,
 }: {
   notePosition?: 'top' | 'bottom'
+  detailsPopup?: boolean
 }) {
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [treatment, setTreatment] = useState<Treatment>('standard')
@@ -22,6 +24,19 @@ export default function BookingFlow({
     phone: '',
   })
 
+  const popupOpen = detailsPopup && step > 1
+
+  useEffect(() => {
+    if (popupOpen) {
+      document.body.style.overflow = 'hidden'
+    } else if (detailsPopup) {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      if (detailsPopup) document.body.style.overflow = ''
+    }
+  }, [popupOpen, detailsPopup])
+
   const selected = TREATMENTS[treatment]
 
   const inputCls =
@@ -31,6 +46,111 @@ export default function BookingFlow({
     <p className="rounded-lg bg-cream px-4 py-3 text-center text-sm font-bold text-navy">
       No deposit is required, full payment is collected at the clinic.
     </p>
+  )
+
+  const details = (
+    <div>
+      <p className="text-center text-sm text-slate-500">
+        {selected.name} —{' '}
+        <span className="font-semibold text-navy">{selected.price}</span>
+      </p>
+
+      <form
+        className="mx-auto mt-8 max-w-md space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault()
+          setStep(3)
+        }}
+      >
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-navy">
+            First Name
+          </label>
+          <input
+            required
+            type="text"
+            value={form.firstName}
+            onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+            className={inputCls}
+            placeholder="First name"
+          />
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-navy">
+            Last Name
+          </label>
+          <input
+            required
+            type="text"
+            value={form.lastName}
+            onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+            className={inputCls}
+            placeholder="Last name"
+          />
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-navy">
+            Email
+          </label>
+          <input
+            required
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className={inputCls}
+            placeholder="you@example.com"
+          />
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium text-navy">
+            Phone
+          </label>
+          <input
+            required
+            type="tel"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className={inputCls}
+            placeholder="07123 456789"
+          />
+        </div>
+
+        {note}
+
+        <button
+          type="submit"
+          className="w-full rounded-full bg-gold py-4 text-center text-sm font-semibold tracking-[0.12em] text-white transition-colors hover:bg-gold-dark"
+        >
+          REQUEST MY APPOINTMENT
+        </button>
+        <button
+          type="button"
+          onClick={() => setStep(1)}
+          className="w-full text-center text-sm text-slate-500 underline-offset-2 hover:underline"
+        >
+          Back to treatments
+        </button>
+      </form>
+    </div>
+  )
+
+  const thankYou = (
+    <div className="py-6 text-center">
+      <CheckCircle2 className="mx-auto h-16 w-16 text-gold" />
+      <h3 className="mt-5 font-display text-2xl font-medium text-navy sm:text-3xl">
+        Thank You{form.firstName ? `, ${form.firstName}` : ''}!
+      </h3>
+      <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600">
+        Your booking request for a{' '}
+        <span className="font-semibold text-navy">{selected.name}</span> (
+        {selected.price}) has been received. Our team will be in touch shortly
+        to confirm your appointment time.
+      </p>
+      <p className="mx-auto mt-4 max-w-md rounded-lg bg-cream px-4 py-3 text-sm text-slate-600">
+        No payment has been taken — full payment is collected at the clinic on
+        the day of your appointment.
+      </p>
+    </div>
   )
 
   return (
@@ -133,114 +253,31 @@ export default function BookingFlow({
         </div>
       )}
 
-      {step === 2 && (
-        <div>
-          <p className="text-center text-sm text-slate-500">
-            {selected.name} —{' '}
-            <span className="font-semibold text-navy">{selected.price}</span>
-          </p>
+      {!detailsPopup && step === 2 && details}
+      {!detailsPopup && step === 3 && thankYou}
 
-          <form
-            className="mx-auto mt-8 max-w-md space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault()
-              setStep(3)
-            }}
-          >
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-navy">
-                First Name
-              </label>
-              <input
-                required
-                type="text"
-                value={form.firstName}
-                onChange={(e) =>
-                  setForm({ ...form, firstName: e.target.value })
-                }
-                className={inputCls}
-                placeholder="First name"
-              />
-            </div>
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-navy">
-                Last Name
-              </label>
-              <input
-                required
-                type="text"
-                value={form.lastName}
-                onChange={(e) =>
-                  setForm({ ...form, lastName: e.target.value })
-                }
-                className={inputCls}
-                placeholder="Last name"
-              />
-            </div>
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-navy">
-                Email
-              </label>
-              <input
-                required
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className={inputCls}
-                placeholder="you@example.com"
-              />
-            </div>
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-navy">
-                Phone
-              </label>
-              <input
-                required
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className={inputCls}
-                placeholder="07123 456789"
-              />
-            </div>
-
-            <p className="rounded-lg bg-cream px-4 py-3 text-center text-sm font-bold text-navy">
-              No deposit is required, full payment is collected at the clinic.
-            </p>
-
+      {/* Details / thank-you as popup when embedded inline on the page */}
+      {popupOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-navy-dark/80 backdrop-blur-sm"
+            onClick={() => setStep(1)}
+          />
+          <div className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl sm:p-10">
             <button
-              type="submit"
-              className="w-full rounded-full bg-gold py-4 text-center text-sm font-semibold tracking-[0.12em] text-white transition-colors hover:bg-gold-dark"
-            >
-              REQUEST MY APPOINTMENT
-            </button>
-            <button
-              type="button"
               onClick={() => setStep(1)}
-              className="w-full text-center text-sm text-slate-500 underline-offset-2 hover:underline"
+              aria-label="Close booking form"
+              className="absolute right-4 top-4 z-10 rounded-full bg-slate-100 p-2 text-slate-500 transition-colors hover:bg-slate-200"
             >
-              Back to treatments
+              <X className="h-5 w-5" />
             </button>
-          </form>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div className="py-6 text-center">
-          <CheckCircle2 className="mx-auto h-16 w-16 text-gold" />
-          <h3 className="mt-5 font-display text-2xl font-medium text-navy sm:text-3xl">
-            Thank You{form.firstName ? `, ${form.firstName}` : ''}!
-          </h3>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-            Your booking request for a{' '}
-            <span className="font-semibold text-navy">{selected.name}</span> (
-            {selected.price}) has been received. Our team will be in touch
-            shortly to confirm your appointment time.
-          </p>
-          <p className="mx-auto mt-4 max-w-md rounded-lg bg-cream px-4 py-3 text-sm text-slate-600">
-            No payment has been taken — full payment is collected at the clinic
-            on the day of your appointment.
-          </p>
+            {step === 2 && (
+              <h3 className="mb-2 px-8 text-center font-display text-2xl font-medium text-navy">
+                Your Details
+              </h3>
+            )}
+            {step === 2 ? details : thankYou}
+          </div>
         </div>
       )}
     </div>
