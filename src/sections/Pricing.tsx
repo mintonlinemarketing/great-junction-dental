@@ -36,7 +36,7 @@ export default function Pricing() {
               </div>
             </div>
             <p className="animate-flash mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white">
-              Lowest Hygienist Price in Edinburgh
+              Special Offer — Our Lowest Prices, Limited Period Only
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">

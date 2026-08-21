@@ -31,7 +31,7 @@ export default function Hero() {
           <div className="max-w-xl overflow-hidden rounded-2xl bg-white/95 text-center shadow-2xl backdrop-blur">
             <div className="bg-gold px-6 py-3.5">
               <p className="animate-flash text-sm font-bold uppercase tracking-[0.2em] text-white">
-                Lowest Hygienist Price in Edinburgh
+                Special Offer — Our Lowest Prices, Limited Period Only
               </p>
             </div>
             <div className="p-6 sm:p-10">
@@ -102,7 +102,7 @@ export default function Hero() {
       {/* USP strip */}
       <div className="bg-gold px-4 py-5 text-center">
         <p className="animate-flash text-sm font-bold uppercase tracking-[0.15em] text-white sm:text-lg sm:tracking-[0.25em] lg:text-xl">
-          ★ Lowest Hygienist Price in Edinburgh ★
+          ★ Special Offer — Our Lowest Prices, Limited Period Only ★
         </p>
       </div>
     </section>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import Header from '../sections/Header'
 import Hero from '../sections/Hero'
 import Welcome from '../sections/Welcome'
-import Team from '../sections/Team'
 import Gallery from '../sections/Gallery'
 import Pricing from '../sections/Pricing'
 import Benefits from '../sections/Benefits'
@@ -34,7 +33,6 @@ export default function Home() {
       <main>
         <Hero />
         <Welcome />
-        <Team />
         <Gallery />
         <Pricing />
         <Benefits />
