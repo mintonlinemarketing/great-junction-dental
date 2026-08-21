@@ -99,7 +99,9 @@ export default function Faq() {
     return (
       <div
         key={faq.q}
-        className="overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
+        className={`overflow-hidden border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md ${
+          isOpen ? 'rounded-2xl' : 'rounded-full'
+        }`}
       >
         <button
           onClick={() => setOpen(isOpen ? null : i)}

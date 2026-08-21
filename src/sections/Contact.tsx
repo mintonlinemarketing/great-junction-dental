@@ -83,7 +83,7 @@ export default function Contact() {
               Choose your treatment — no payment required today.
             </p>
             <div className="mt-10">
-              <BookingFlow />
+              <BookingFlow detailsPopup />
             </div>
           </div>
         </div>

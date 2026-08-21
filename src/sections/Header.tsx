@@ -68,6 +68,15 @@ export default function Header() {
           </a>
         </nav>
 
+        {/* Mobile phone number */}
+        <a
+          href="tel:01315548589"
+          className="flex flex-1 items-center justify-center gap-1.5 text-sm font-semibold text-navy lg:hidden"
+        >
+          <Phone className="h-4 w-4 text-gold" />
+          0131 554 8589
+        </a>
+
         <button
           className="text-navy lg:hidden"
           onClick={() => setOpen(!open)}
