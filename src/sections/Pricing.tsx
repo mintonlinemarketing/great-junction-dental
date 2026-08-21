@@ -35,7 +35,7 @@ export default function Pricing() {
                 <p className="mt-3 font-display text-4xl text-white">£75</p>
               </div>
             </div>
-            <p className="mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white">
+            <p className="animate-flash mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white">
               Lowest Hygienist Price in Edinburgh
             </p>
 
