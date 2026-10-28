@@ -178,8 +178,9 @@ export default function BookingFlow({
         to confirm your appointment time.
       </p>
       <p className="mx-auto mt-4 max-w-md rounded-lg bg-cream px-4 py-3 text-sm text-slate-600">
-        No payment has been taken — full payment is collected at the clinic on
-        the day of your appointment.
+        A small booking deposit will be required to secure your appointment.
+        This will be deducted from your appointment fee, with the balance
+        collected on the day.
       </p>
     </div>
   )
