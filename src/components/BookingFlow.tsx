@@ -148,6 +148,10 @@ export default function BookingFlow({
           />
         </div>
 
+        <p className="rounded-lg bg-cream px-4 py-3 text-center text-sm text-navy">
+          A small booking deposit will be required to secure your hygiene appointment. This will be deducted from your hygiene appointment fee which will be collected on the day.
+        </p>
+
         <button
           type="submit"
           className="w-full rounded-full bg-gold py-4 text-center text-sm font-semibold tracking-[0.12em] text-white transition-colors hover:bg-gold-dark"

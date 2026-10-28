@@ -76,6 +76,9 @@ export default function Hero() {
             >
               REQUEST YOUR APPOINTMENT
             </a>
+            <p className="mx-auto mt-4 max-w-md text-sm text-slate-500">
+              A small booking deposit will be required to secure your hygiene appointment. This will be deducted from your hygiene appointment fee which will be collected on the day.
+            </p>
 
             <div className="mt-7 flex items-center justify-center gap-2 border-t border-slate-100 pt-6">
               <span className="flex text-amber-400">
