@@ -38,6 +38,9 @@ export default function Pricing() {
             <p className="animate-flash mt-4 text-sm font-semibold uppercase tracking-[0.15em] text-white">
               Special Offer — Our Lowest Prices, Limited Period Only
             </p>
+            <p className="mx-auto mt-4 max-w-md text-sm text-slate-200 lg:mx-0">
+              A small booking deposit will be required to secure your hygiene appointment. This will be deducted from your hygiene appointment fee which will be collected on the day.
+            </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4 lg:justify-start">
               <a
