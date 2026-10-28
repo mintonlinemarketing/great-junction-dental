@@ -9,7 +9,6 @@ const TREATMENTS: Record<Treatment, { name: string; price: string }> = {
 }
 
 export default function BookingFlow({
-  notePosition = 'bottom',
   detailsPopup = false,
 }: {
   notePosition?: 'top' | 'bottom'
@@ -85,12 +84,6 @@ export default function BookingFlow({
   const inputCls =
     'w-full rounded-lg border border-slate-300 px-4 py-3 text-sm text-navy outline-none transition-colors focus:border-gold focus:ring-2 focus:ring-gold/30'
 
-  const note = (
-    <p className="rounded-lg bg-cream px-4 py-3 text-center text-sm font-bold text-navy">
-      No deposit is required, full payment is collected at the clinic.
-    </p>
-  )
-
   const details = (
     <div>
       <p className="text-center text-sm text-slate-500">
@@ -155,8 +148,6 @@ export default function BookingFlow({
           />
         </div>
 
-        {note}
-
         <button
           type="submit"
           className="w-full rounded-full bg-gold py-4 text-center text-sm font-semibold tracking-[0.12em] text-white transition-colors hover:bg-gold-dark"
@@ -187,8 +178,9 @@ export default function BookingFlow({
         to confirm your appointment time.
       </p>
       <p className="mx-auto mt-4 max-w-md rounded-lg bg-cream px-4 py-3 text-sm text-slate-600">
-        No payment has been taken — full payment is collected at the clinic on
-        the day of your appointment.
+        A small booking deposit will be required to secure your appointment.
+        This will be deducted from your appointment fee, with the balance
+        collected on the day.
       </p>
     </div>
   )
@@ -197,7 +189,6 @@ export default function BookingFlow({
     <div>
       {step === 1 && (
         <div>
-          {notePosition === 'top' && <div className="mb-8">{note}</div>}
           <div className="grid gap-6 sm:grid-cols-2">
             {/* Standard Clean */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -289,7 +280,6 @@ export default function BookingFlow({
             </div>
           </div>
 
-          {notePosition === 'bottom' && <div className="mt-8">{note}</div>}
         </div>
       )}
 
